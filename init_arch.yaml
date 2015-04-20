@@ -1,0 +1,37 @@
+# vim:ft=ansible:
+
+# Playbook for basic setup on a bare system running ARCH
+# first it will use the raw module to:
+# - update packet list
+# - install python
+#
+# then it will continue to install the following packages:
+# - base-devel
+# - git
+# - vim
+# - rsync
+# - curl
+# - wget
+# 
+# then it will ask to install the following packages:
+# - ranger
+# - tmux
+# - zsh
+# - dotfiles (will use git and provided url to fetch dotfiles from your repo)
+
+---
+- hosts: arch
+  vars:
+    sudo: yes
+  tasks:
+  - name: use raw module to update pacman database
+    raw: pacman -Sy --noconfirm
+  - name: use raw and search for vim to check if pacman still works
+    raw: pacman -Ss vim
+  - name: use raw module to update system
+    raw: pacman -Syu
+  - name: use raw module to install python
+    raw: pacman -S python
+  - name: restart webserver
+    shell: /usr/sbin/restart -0
+

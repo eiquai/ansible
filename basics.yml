@@ -1,0 +1,21 @@
+# vim:ft=ansible:
+# install vim, git, rsync, curl, wget and zsh
+
+---
+- hosts: vserver
+  sudo: yes 
+  tasks:
+  - name: update master package list
+    pacman: update_cache=yes
+  - name: install latest version of vim
+    pacman: name=vim state=latest
+  - name: install latest version of git
+    pacman: name=git  state=latest
+  - name: install latest version of rsync
+    pacman: name=rsync state=latest
+  - name: install latest version of curl
+    pacman: name=curl state=latest
+  - name: install latest version of wget
+    pacman: name=wget state=latest
+  - name: install latest version of zsh
+    pacman: name=zsh state=latest
